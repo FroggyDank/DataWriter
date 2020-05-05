@@ -1,4 +1,7 @@
 # DataWriter
+
+Do not spread...
+
 DataWriter.cpp : Simple file overwrite in current dir...
 
 Will overwrite exes and other executable types : for example when a batch file is overwritten and you execute it, the batch file will act
